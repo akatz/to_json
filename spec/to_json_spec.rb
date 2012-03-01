@@ -36,6 +36,9 @@ describe Array do
   it "should convert an array of hashes correctly" do
     [{"a" => 1}, {"b" => 2}].to_json.should == "[{\"a\":1},{\"b\":2}]"
   end
+  it "should convert an array with nil in it correctly" do
+    ["a",nil].to_json.should == "[\"a\",NaN]"
+  end
 end
 
 describe Hash do
@@ -51,4 +54,11 @@ describe Hash do
   it "should convert a hash of number key => values correctly" do
     {1 => 2}.to_json.should == "{1:2}"
   end
+  it "should not convert a hash with a nil key" do
+    lambda { {nil => "a"}.to_json }.should raise_error NilKeyForHashError
+  end
+end
+
+describe nil do
+  nil.to_json.should == "NaN"
 end
