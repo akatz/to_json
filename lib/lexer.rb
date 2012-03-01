@@ -7,28 +7,17 @@ module JSON
 
     def tokenize
       @tokens = []
-      pos = 0
-      word = false
-      word_arr = []
-      until pos == @string.size
-        if @string[pos].match(TOKENS)
-          if word == true
-            @tokens << word_arr.join
-            word_arr = []
-          end
-          @tokens << @string[pos].to_s 
-          word = false
-        end
-        if pos == @string.size-1 && word == true
-            @tokens << word_arr.join
-        end
-        
-        if @string[pos].match /\w/
-          word = true
-          word_arr << @string[pos]
-        end
-        pos = pos+1
+      require 'strscan'
+      ss = StringScanner.new(@string)
+      loop do
+        word = ss.scan(TOKENS)
+        @tokens << word.split unless word.nil?
+        sep = ss.scan(/\w+/)     # Grab next non-word piece
+        @tokens << sep unless sep.nil?
+        ss.scan(/\s/) if word.nil? && sep.nil?
+        break if ss.eos? 
       end
+      @tokens.flatten!.compact!
       @tokens
     end
 

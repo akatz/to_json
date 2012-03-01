@@ -14,12 +14,16 @@ describe JSON::Lexer do
     @lexer.tokenize.should == ["[","\"","w00t","\"",",","[","\"","w00t","\"","]","]"]
   end
   it "should recognize hashes" do
-    @lexer = JSON::Lexer.new("{\"w00t\": \"test\"}")
+    @lexer = JSON::Lexer.new("{\"w00t\":\"test\"}")
     @lexer.tokenize.should == ["{","\"","w00t","\"",":","\"","test","\"","}"]
   end
   it "should recognize nested hashes do" do
     @lexer = JSON::Lexer.new("{\"w00t\":{\"w00t\":\"test\"}}")
     @lexer.tokenize.should == ["{","\"","w00t","\"",":","{","\"","w00t","\"",":","\"","test","\"","}","}"]
+  end
+  it "should ignore whitespace" do
+    @lexer = JSON::Lexer.new("{\"w00t\": \"test\"}")
+    @lexer.tokenize.should == ["{","\"","w00t","\"",":","\"","test","\"","}"]
   end
   it "should be able to convert a list of tokens to ruby" do
     @lexer = JSON::Lexer.new("\"w00t\"")
