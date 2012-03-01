@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/akatz/to_json.png?branch=master)](http://travis-ci.org/akatz/to_json)
+
 # ToJson
 
 TODO: Let's reimplement to_json for fun
