@@ -1,6 +1,6 @@
 # ToJson
 
-TODO: Write a gem description
+TODO: Let's reimplement to_json for fun
 
 ## Installation
 
@@ -18,7 +18,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+right now this support strings,fixnums,arrays, and hashes
+
+[1,2].to_json # outputs "[1,2]"
+{"1" => 2}.to_json outputs "{\"1\":2}
+
+
 
 ## Contributing
 
